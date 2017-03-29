@@ -19,7 +19,7 @@ public class ConnectMember extends MemberMainServlet {
         request.setAttribute("form", form);
         request.setAttribute("member", member);
         if (member.getId() != -1)
-            response.sendRedirect("/admin/members");
+            response.sendRedirect(request.getContextPath() + "/admin/members");
         else
             this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
     }

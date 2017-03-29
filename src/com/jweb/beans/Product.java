@@ -5,6 +5,7 @@ package com.jweb.beans;
  */
 public class Product {
     private long id;
+    private long category;
     private String name;
     private String description;
     private float price;
@@ -39,5 +40,13 @@ public class Product {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public long getCategory() {
+        return category;
+    }
+
+    public void setCategory(long category) {
+        this.category = category;
     }
 }

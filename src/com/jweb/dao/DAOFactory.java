@@ -11,17 +11,17 @@ import java.util.Properties;
  * Created by gaetan on 29/12/15.
  */
 public class DAOFactory {
-    private static final String PROPERTIES_FILE   = "/com/jweb/dao/dao.properties";
-    private static final String PROPERTY_URL      = "url";
-    private static final String PROPERTY_DRIVER   = "driver";
+    private static final String PROPERTIES_FILE = "/com/jweb/dao/dao.properties";
+    private static final String PROPERTY_URL = "url";
+    private static final String PROPERTY_DRIVER = "driver";
     private static final String PROPERTY_USERNAME = "username";
     private static final String PROPERTY_PASSWORD = "password";
 
-    private String              url;
-    private String              username;
-    private String              password;
+    private String url;
+    private String username;
+    private String password;
 
-    DAOFactory(String url, String username, String password) {
+    private DAOFactory(String url, String username, String password) {
         this.url = url;
         this.username = username;
         this.password = password;
@@ -38,7 +38,7 @@ public class DAOFactory {
         InputStream propertiesFile = classLoader.getResourceAsStream(PROPERTIES_FILE);
 
         if (propertiesFile == null) {
-            throw new DAOConfigurationException("The file " + PROPERTIES_FILE + " cannot be find." );
+            throw new DAOConfigurationException("The file " + PROPERTIES_FILE + " cannot be find.");
         }
 
         try {
@@ -57,8 +57,7 @@ public class DAOFactory {
             throw new DAOConfigurationException("Driver cannot be found in the classpath.", e);
         }
 
-        DAOFactory instance = new DAOFactory(url, username, password);
-        return instance;
+        return new DAOFactory(url, username, password);
     }
 
     Connection getConnection() throws SQLException {
@@ -79,5 +78,9 @@ public class DAOFactory {
 
     public IReviewDao getReviewDao() {
         return new ReviewDao(this);
+    }
+
+    public  ICategoryDao getCategoryDao() {
+        return new CategoryDao(this);
     }
 }

@@ -18,6 +18,8 @@
     <br />
     ${product.price} €
     <br />
+    ${product.category}
+    <br />
     <h2>Reviews</h2>
     <c:forEach items="${reviews}" var="item">
         by ${item.author}

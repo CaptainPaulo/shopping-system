@@ -10,13 +10,13 @@ import java.util.List;
  * Created by gaetan on 29/12/15.
  */
 public class MemberDao extends DAO implements IMemberDao {
-    private static final String SQL_INSERT = "INSERT INTO member (email, password, firstName, lastName, newsletter) VALUES (?, ?, ?, ?, ?)";
-    private static final String SQL_FIND_BY_EMAIL = "SELECT * FROM member WHERE email = ?";
-    private static final String SQL_GET_ALL = "SELECT * FROM member";
-    private static final String SQL_FIND_BY_ID = "SELECT * FROM member WHERE id = ?";
-    private static final String SQL_EMAIL_AND_PASSWORD_MATCH = "SELECT COUNT(*) as nbr FROM member WHERE email = ? AND password = ?";
-    private static final String SQL_DELETE_BY_ID = "DELETE FROM member WHERE id = ?";
-    private static final String SQL_UPDATE = "UPDATE member SET email = ?, firstName = ?, lastName = ?, newsletter = ? WHERE id = ?";
+    private static final String SQL_INSERT = "INSERT INTO Member (email, password, firstName, lastName, newsletter) VALUES (?, ?, ?, ?, ?)";
+    private static final String SQL_FIND_BY_EMAIL = "SELECT * FROM Member WHERE email = ?";
+    private static final String SQL_GET_ALL = "SELECT * FROM Member";
+    private static final String SQL_FIND_BY_ID = "SELECT * FROM Member WHERE id = ?";
+    private static final String SQL_EMAIL_AND_PASSWORD_MATCH = "SELECT COUNT(*) as nbr FROM Member WHERE email = ? AND password = ?";
+    private static final String SQL_DELETE_BY_ID = "DELETE FROM Member WHERE id = ?";
+    private static final String SQL_UPDATE = "UPDATE Member SET email = ?, firstName = ?, lastName = ?, newsletter = ? WHERE id = ?";
 
     MemberDao(DAOFactory daoFactory) {
         super(daoFactory);
@@ -28,8 +28,12 @@ public class MemberDao extends DAO implements IMemberDao {
 
         try {
             connection = daoFactory.getConnection();
-            preparedStatement = initPreparedRequest(connection, SQL_UPDATE, false, member.getEmail(),
-                    member.getFirstName(), member.getLastName(), member.isNewsletter(), member.getId());
+            preparedStatement = initPreparedRequest(connection, SQL_UPDATE, false,
+                    member.getEmail(),
+                    member.getFirstName(),
+                    member.getLastName(),
+                    member.isNewsletter(),
+                    member.getId());
             int status = preparedStatement.executeUpdate();
             if (status == 0) {
                 throw new DAOException("Error while updating the member, member not updated.");
@@ -103,7 +107,6 @@ public class MemberDao extends DAO implements IMemberDao {
     }
 
 
-
     public void create(Member member) throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -111,8 +114,12 @@ public class MemberDao extends DAO implements IMemberDao {
 
         try {
             connection = daoFactory.getConnection();
-            preparedStatement = initPreparedRequest(connection, SQL_INSERT, true, member.getEmail(),
-                    member.getPassword(), member.getFirstName(), member.getLastName(), member.isNewsletter());
+            preparedStatement = initPreparedRequest(connection, SQL_INSERT, true,
+                    member.getEmail(),
+                    member.getPassword(),
+                    member.getFirstName(),
+                    member.getLastName(),
+                    member.isNewsletter());
             int status = preparedStatement.executeUpdate();
             if (status == 0) {
                 throw new DAOException("Failing to create a user on the DB, nothing added.");
@@ -120,8 +127,7 @@ public class MemberDao extends DAO implements IMemberDao {
             generatedID = preparedStatement.getGeneratedKeys();
             if (generatedID.next()) {
                 member.setId(generatedID.getLong(1));
-            }
-            else {
+            } else {
                 throw new DAOException("Failing to create a user on the DB, no ID generated.");
             }
         } catch (SQLException e) {

@@ -10,8 +10,8 @@ import java.util.List;
  * Created by gaetan on 06/01/16.
  */
 public class NewsDao extends DAO implements INewsDao {
-    private static final String SQL_INSERT = "INSERT INTO news (author, title, body, publicationDate) VALUES (?, ?, ?, ?)";
-    private static final String SQL_GET_ALL = "SELECT * FROM news";
+    private static final String SQL_INSERT = "INSERT INTO News (author, title, body, publicationDate) VALUES (?, ?, ?, ?)";
+    private static final String SQL_GET_ALL = "SELECT * FROM News";
 
     NewsDao(DAOFactory daoFactory) {
         super(daoFactory);
@@ -54,8 +54,7 @@ public class NewsDao extends DAO implements INewsDao {
             generatedID = preparedStatement.getGeneratedKeys();
             if (generatedID.next()) {
                 news.setId(generatedID.getLong(1));
-            }
-            else {
+            } else {
                 throw new DAOException("Failing to create a news on the DB, no ID generated.");
             }
         } catch (SQLException e) {

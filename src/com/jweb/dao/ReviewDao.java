@@ -13,8 +13,8 @@ import java.util.List;
  * Created by gaetan on 10/01/16.
  */
 public class ReviewDao extends DAO implements IReviewDao {
-    private static final String SQL_INSERT = "INSERT INTO review (author, note, description, product_id) VALUES (?, ?, ?, ?)";
-    private static final String SQL_GET_ALL = "SELECT * FROM review";
+    private static final String SQL_INSERT = "INSERT INTO Review (author, note, description, product_id) VALUES (?, ?, ?, ?)";
+    private static final String SQL_GET_ALL = "SELECT * FROM Review";
 
     ReviewDao(DAOFactory daoFactory) {
         super(daoFactory);
@@ -57,8 +57,7 @@ public class ReviewDao extends DAO implements IReviewDao {
             generatedID = preparedStatement.getGeneratedKeys();
             if (generatedID.next()) {
                 review.setId(generatedID.getLong(1));
-            }
-            else {
+            } else {
                 throw new DAOException("Failing to create a review on the DB, no ID generated.");
             }
         } catch (SQLException e) {

@@ -18,7 +18,7 @@
     <br />
     ${product.price} €
     <br />
-    ${product.category}
+    ${category.name}
     <br />
     <h2>Reviews</h2>
     <c:forEach items="${reviews}" var="item">

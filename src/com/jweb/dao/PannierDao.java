@@ -45,7 +45,7 @@ public class PannierDao extends DAO implements IPannierDao {
         return panniers;
     }
 
-    public List<Pannier> getByBuy(boolean buy, String id) throws DAOException {
+    public List<Pannier> getByBuy(boolean buy, String memberId) throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -55,7 +55,7 @@ public class PannierDao extends DAO implements IPannierDao {
             connection = daoFactory.getConnection();
             preparedStatement = initPreparedRequest(connection, SQL_GET_BY_BUY, false,
                     buy,
-                    id);
+                    memberId);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 panniers.add(hydrate(resultSet));

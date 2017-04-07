@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface IPannierDao {
     List<Pannier> getAll() throws DAOException;
-    List<Pannier> getByBuy(boolean buy, String id) throws DAOException;
+    List<Pannier> getByBuy(boolean buy, String memberId) throws DAOException;
     void create(Pannier pannier) throws DAOException;
     void delete(String id) throws DAOException;
     void update(Pannier pannier) throws DAOException;

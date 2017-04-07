@@ -35,15 +35,19 @@ public class ShowProduct extends HttpServlet {
         request.setAttribute("form", form);
         request.setAttribute("review", review);
 
-        Product product = this.productDao.findById("1");
-        Category category = this.categoryDao.findById(String.valueOf(product.getCategory()));
-        List<Review> reviews = this.reviewDao.getAll();
+        if (review.getId() == -1) {
+            response.sendRedirect(request.getContextPath() + "/jweb_war_exploded/product");
+        } else {
+            this.getServletContext().getRequestDispatcher("/product.jsp").forward(request, response);
+        }
+//        Product product = this.productDao.findById("1");
+//        List<Review> reviews = this.reviewDao.getAll();
+//        Category category = this.categoryDao.findById(String.valueOf(product.getCategory()));
+//
+//        request.setAttribute("product", product);
+//        request.setAttribute("reviews", reviews);
+//        request.setAttribute("category", category);
 
-        request.setAttribute("product", product);
-        request.setAttribute("reviews", reviews);
-        request.setAttribute("category", category);
-
-        this.getServletContext().getRequestDispatcher("/product.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

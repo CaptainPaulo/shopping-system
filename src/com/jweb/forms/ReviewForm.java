@@ -56,7 +56,7 @@ public class ReviewForm {
             errors.put("note", e.getMessage());
         }
         if (note != null)
-            review.setNote(Integer.parseInt(getParameterValue(request, "note")));
+            review.setNote(Integer.parseInt(note));
 
         result = "Review successfully posted.";
         if (!errors.isEmpty()) {

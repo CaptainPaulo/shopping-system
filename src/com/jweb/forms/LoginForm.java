@@ -5,50 +5,34 @@ import com.jweb.dao.MemberDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by gaetan on 05/01/16.
  */
-public class LoginForm {
+public class LoginForm extends Form {
 
     public LoginForm(MemberDao memberDao) {
-        this.result = null;
+        super("email", "password");
         this.memberDao = memberDao;
     }
 
-    private String result;
-    private Map<String, String> errors = new HashMap<String, String>();
     private MemberDao memberDao;
 
-    public String getResult() {
-        return result;
-    }
-
-    public Map<String, String> getErrors() {
-        return errors;
-    }
-
     public Member connectMember(HttpServletRequest request) {
-        String email = getFieldValue(request, "email");
-        String password = getFieldValue(request, "password");
-        Member member = null;
+        getAllParametersValue(request);
+        validateAllEmptyString();
+        String email = parametersValue.get("email");
+        String password = parametersValue.get("password");
 
         try {
             validateEmail(email);
         } catch (Exception e) {
             errors.put("email", e.getMessage());
         }
-        try {
-            validatePassword(password);
-        } catch (Exception e) {
-            errors.put("password", e.getMessage());
-        }
         if (!memberDao.emailAndPasswordMatch(email, password) && errors.isEmpty()) {
             result = "Email and password do not match.";
         }
-        member = memberDao.findByEmail(email);
+        Member member = memberDao.findByEmail(email);
         if (member != null) {
             if (!member.isAdmin() && errors.isEmpty() && result == null) {
                 result = "This member is not an admin.";
@@ -56,6 +40,7 @@ public class LoginForm {
         }
         if (errors.isEmpty() && result == null) {
             HttpSession session = request.getSession();
+            assert member != null;
             session.setAttribute("admin", member.getId());
             result = "You have been successfully connected.";
         }
@@ -69,26 +54,8 @@ public class LoginForm {
     }
 
     private void validateEmail(String email) throws Exception {
-        if (email != null && !email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
+        if (!email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
             throw new Exception("Please enter a valid mail address.");
-        }
-        if (email == null) {
-            throw new Exception("The mail address is empty.");
-        }
-    }
-
-    private void validatePassword(String motDePasse) throws Exception {
-        if (motDePasse == null) {
-            throw new Exception("The password is empty.");
-        }
-    }
-
-    private static String getFieldValue(HttpServletRequest request, String nomChamp) {
-        String value = request.getParameter(nomChamp);
-        if (value == null || value.trim().length() == 0) {
-            return null;
-        } else {
-            return value;
         }
     }
 }

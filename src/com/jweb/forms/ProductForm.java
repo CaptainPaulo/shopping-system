@@ -6,7 +6,6 @@ import com.jweb.dao.DAOException;
 import com.jweb.dao.ProductDao;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 /**
  * Created by adenis_e on 17-4-7.
@@ -23,11 +22,6 @@ public class ProductForm extends Form {
                 "category-id");
         this.productDao = productDao;
         this.categoryDao = categoryDao;
-    }
-
-
-    public Map<String, String> getErrors() {
-        return errors;
     }
 
     public Product createProduct(HttpServletRequest request) {

@@ -10,9 +10,9 @@ import java.util.Map;
 abstract class Form {
     protected String result;
     protected Map<String, String> errors = new HashMap<>();
-    protected Map<String, String> parametersValue; // Key is the name and value is the value
+    Map<String, String> parametersValue; // Key is the name and value is the value
 
-    protected Form(String... parameters) {
+    Form(String... parameters) {
         parametersValue = new HashMap<>();
         result = null;
         for (String parameter : parameters) {
@@ -34,7 +34,7 @@ abstract class Form {
         }
     }
 
-    protected void validateAllEmptyString() {
+    void validateAllEmptyString() {
         for (Map.Entry<String, String> entry : parametersValue.entrySet()) {
             try {
                 validateEmptyString(entry.getValue(), entry.getKey());
@@ -52,13 +52,13 @@ abstract class Form {
         return value.trim();
     }
 
-    protected void getAllParametersValue(HttpServletRequest request) {
+    void getAllParametersValue(HttpServletRequest request) {
         for (Map.Entry<String, String> entry : parametersValue.entrySet()) {
             parametersValue.put(entry.getKey(), getParameterValue(request, entry.getKey()));
         }
     }
 
-    protected boolean checkErrors() {
+    boolean checkErrors() {
         if (!errors.isEmpty()) {
             result = "Error in the form.";
         }

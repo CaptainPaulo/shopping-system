@@ -52,7 +52,7 @@ public class ShowProduct extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Product product = this.productDao.findById("1");
+        Product product = this.productDao.findById(request.getParameter("id"));
         List<Review> reviews = this.reviewDao.getAll();
         Category category = this.categoryDao.findById(String.valueOf(product.getCategory()));
 

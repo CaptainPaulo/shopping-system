@@ -32,7 +32,7 @@
         </p>
     </c:forEach>
     <br />
-    <form method="post" action="/product">
+    <form method="post" action="${pageContext.request.contextPath}/product">
         <fieldset>
             <legend>Register</legend>
 

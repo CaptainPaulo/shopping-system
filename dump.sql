@@ -108,11 +108,10 @@ CREATE TABLE `Pannier` (
   `member_id` int(11) NOT NULL,
   `number_of_product` int(11) DEFAULT '1',
   `product_id` int(11) NOT NULL,
+  `buy` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `Pannier_id_uindex` (`id`),
-  UNIQUE KEY `Pannier_member_id_uindex` (`member_id`),
-  UNIQUE KEY `Pannier_product_id_uindex` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  UNIQUE KEY `Pannier_id_uindex` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,6 +120,7 @@ CREATE TABLE `Pannier` (
 
 LOCK TABLES `Pannier` WRITE;
 /*!40000 ALTER TABLE `Pannier` DISABLE KEYS */;
+INSERT INTO `Pannier` VALUES (1,1,1,1,0);
 /*!40000 ALTER TABLE `Pannier` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,8 +136,7 @@ CREATE TABLE `Product` (
   `name` varchar(60) NOT NULL,
   `description` text,
   `price` float NOT NULL,
-  `category_id` int(11) NOT NULL,
-  UNIQUE KEY `Product_category_id_uindex` (`category_id`)
+  `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -187,4 +186,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-06 16:53:16
+-- Dump completed on 2017-04-07 12:51:12

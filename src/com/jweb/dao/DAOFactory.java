@@ -64,6 +64,14 @@ public class DAOFactory {
         return DriverManager.getConnection(url, username, password);
     }
 
+    public  ICategoryDao getCategoryDao() {
+        return new CategoryDao(this);
+    }
+
+    public IPannierDao getPannierDao() {
+        return new PannierDao(this);
+    }
+
     public IMemberDao getMemberDao() {
         return new MemberDao(this);
     }
@@ -80,7 +88,4 @@ public class DAOFactory {
         return new ReviewDao(this);
     }
 
-    public  ICategoryDao getCategoryDao() {
-        return new CategoryDao(this);
-    }
 }

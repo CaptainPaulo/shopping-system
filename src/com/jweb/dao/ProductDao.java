@@ -105,7 +105,7 @@ public class ProductDao extends DAO implements IProductDao {
                     product.getCategory());
             int status = preparedStatement.executeUpdate();
             if (status == 0) {
-                throw new DAOException("Error while updating the member, member not updated.");
+                throw new DAOException("Error while updating the product, product not updated.");
             }
         } catch (SQLException e) {
             throw new DAOException(e);
